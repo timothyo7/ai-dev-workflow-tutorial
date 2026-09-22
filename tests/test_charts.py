@@ -18,3 +18,21 @@ def test_trend_chart_labels_both_axes():
     figure = charts.trend_chart(analytics.sales_by_week(sample_df()))
     assert figure.layout.xaxis.title.text
     assert figure.layout.yaxis.title.text
+
+
+def test_category_chart_has_one_horizontal_bar_trace():
+    figure = charts.category_chart(analytics.sales_by_category(sample_df()))
+    assert len(figure.data) == 1
+    assert figure.data[0].orientation == "h"
+
+
+def test_region_chart_has_one_horizontal_bar_trace():
+    figure = charts.region_chart(analytics.sales_by_region(sample_df()))
+    assert len(figure.data) == 1
+    assert figure.data[0].orientation == "h"
+
+
+def test_bar_charts_put_the_largest_value_on_top():
+    figure = charts.category_chart(analytics.sales_by_category(sample_df()))
+    # Horizontal bars render bottom-up, so ascending order puts the biggest at top.
+    assert figure.layout.yaxis.categoryorder == "total ascending"

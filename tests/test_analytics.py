@@ -164,3 +164,51 @@ def test_sales_by_week_handles_empty_data():
     empty = sample_df().iloc[0:0]
     weekly = analytics.sales_by_week(empty)
     assert len(weekly) == 0
+
+
+def test_sales_by_category_sorted_highest_first():
+    result = analytics.sales_by_category(sample_df())
+    # Audio 100+50+60 = 210, Wearables 40+30 = 70, Smart Home 20
+    assert list(result["category"]) == ["Audio", "Wearables", "Smart Home"]
+    assert list(result["total_amount"]) == [210.0, 70.0, 20.0]
+
+
+def test_sales_by_region_sorted_highest_first():
+    result = analytics.sales_by_region(sample_df())
+    # North 100+40+60 = 200, South 50+30 = 80, East 20
+    assert list(result["region"]) == ["North", "South", "East"]
+
+
+def test_sales_by_category_handles_ties():
+    tied = pd.DataFrame(
+        {"category": ["A", "B"], "total_amount": [50.0, 50.0]}
+    )
+    result = analytics.sales_by_category(tied)
+    assert len(result) == 2
+    assert set(result["category"]) == {"A", "B"}
+
+
+def test_real_csv_has_five_categories_led_by_electronics():
+    df = analytics.load_data(REAL_CSV)
+    result = analytics.sales_by_category(df)
+    assert len(result) == 5
+    assert result.iloc[0]["category"] == "Electronics"
+
+
+def test_real_csv_has_four_regions():
+    df = analytics.load_data(REAL_CSV)
+    result = analytics.sales_by_region(df)
+    assert len(result) == 4
+    assert set(result["region"]) == {"North", "South", "East", "West"}
+
+
+def test_breakdown_totals_match_overall_total():
+    df = analytics.load_data(REAL_CSV)
+    assert round(analytics.sales_by_category(df)["total_amount"].sum(), 2) == 116500.21
+    assert round(analytics.sales_by_region(df)["total_amount"].sum(), 2) == 116500.21
+
+
+def test_breakdowns_handle_empty_data():
+    empty = sample_df().iloc[0:0]
+    assert len(analytics.sales_by_category(empty)) == 0
+    assert len(analytics.sales_by_region(empty)) == 0

@@ -123,3 +123,26 @@ def sales_by_week(df):
         .sort_values("week_start")
         .reset_index(drop=True)
     )
+
+
+def _sales_grouped_by(df, column):
+    """Sum total_amount per value of `column`, biggest first."""
+    if df.empty:
+        return pd.DataFrame({column: [], "total_amount": []})
+
+    return (
+        df.groupby(column, as_index=False)["total_amount"]
+        .sum()
+        .sort_values("total_amount", ascending=False)
+        .reset_index(drop=True)
+    )
+
+
+def sales_by_category(df):
+    """Total sales per product category, highest first."""
+    return _sales_grouped_by(df, "category")
+
+
+def sales_by_region(df):
+    """Total sales per geographic region, highest first."""
+    return _sales_grouped_by(df, "region")
