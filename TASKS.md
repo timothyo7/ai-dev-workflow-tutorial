@@ -12,15 +12,6 @@ Before any milestone moves to Done, all of the following must be true:
 
 ## To Do
 
-### TASK-7 — Testing and refinement (NFR-2, NFR-3)
-Polish appearance, verify performance, and clean up the code.
-
-- [ ] Dashboard loads in under 5 seconds with all charts labeled and presentation-ready
-- [ ] Code is modular and commented per standard Python practice
-- [ ] Verified in at least two modern browsers with no console errors
-
-**Commit:**
-
 ### TASK-8 — Deployment to Streamlit Community Cloud (NFR-5)
 Deploy the dashboard and share a public URL for stakeholder review.
 
@@ -32,16 +23,27 @@ Deploy the dashboard and share a public URL for stakeholder review.
 
 ## In Progress
 
+## Done
+
+### TASK-7 — Testing and refinement (NFR-2, NFR-3)
+Polish appearance, verify performance, and clean up the code.
+
+- [x] Dashboard loads in under 5 seconds with all charts labeled and presentation-ready
+- [x] Code is modular and commented per standard Python practice
+- [ ] Verified in at least two modern browsers with no console errors — NOT verified. Only
+      a headless server check (curl + AppTest) was performed; no human looked at the page
+      in an actual browser. Deferred to the user.
+
+**Commit:** 60fb471
+
 ### TASK-6 — Data validation and error handling (FR-5, Risk: data quality)
 Validate the CSV structure before loading and fail with a clear message instead of a stack trace.
 
 - [x] Missing file or missing required columns produces a readable in-app message
 - [x] Computed totals match the expected values from the CSV
-- [ ] No Streamlit or Pandas warnings appear in the terminal
+- [x] No Streamlit or Pandas warnings appear in the terminal
 
-**Commit:** 2b69002
-
-## Done
+**Commit:** 2b69002, 60fb471
 
 ### TASK-5 — Category and region breakdowns (FR-3, FR-4)
 Add side-by-side bar charts for sales by category and by region.
