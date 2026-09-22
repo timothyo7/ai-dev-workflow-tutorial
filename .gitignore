@@ -229,3 +229,8 @@ node_modules/
 # Local-only instructor dev notes (reviews, tutorial-build specs/plans); kept locally, not shipped.
 # NOTE: do not ignore docs/ - students commit their own docs/superpowers/ specs and plans there.
 dev/
+
+# The repo path contains a ':' so python3 -m venv cannot build here; venv/ is a
+# symlink to ~/.venvs/shopsmart-dashboard. The 'venv/' entry above matches
+# directories only, so the symlink needs its own entry.
+/venv
