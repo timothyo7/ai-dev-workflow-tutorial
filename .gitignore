@@ -230,7 +230,7 @@ node_modules/
 # NOTE: do not ignore docs/ - students commit their own docs/superpowers/ specs and plans there.
 dev/
 
-# The repo path contains a ':' so python3 -m venv cannot build here; venv/ is a
-# symlink to ~/.venvs/shopsmart-dashboard. The 'venv/' entry above matches
-# directories only, so the symlink needs its own entry.
+# 'venv' here is a symlink to ~/.venvs/shopsmart-dashboard (created when this repo
+# lived at a path containing ':', which python3 -m venv refuses). The 'venv/' entry
+# above matches directories only, so the symlink needs its own entry.
 /venv
