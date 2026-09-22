@@ -112,3 +112,39 @@ Streamlit Community Cloud, from `main`, main file `app.py`. `.streamlit/config.t
 `data/sales-data.csv` are tracked so they ship with the app. `app.py` builds `DATA_PATH` from
 `Path(__file__).parent`, so nothing depends on the working directory Cloud chooses — keep it that
 way. Cloud may not offer Python 3.14; nothing here uses 3.14-only syntax, so 3.13 is fine.
+
+## Lessons
+
+Rules distilled from the Notes lines in `TASKS.md` — each one is a mistake that actually happened
+on this project, not general advice.
+
+- **Don't tick a criterion you cannot verify.** A milestone moves to Done only when every box is
+  genuinely checked. If something needs a human — a browser render, a visual judgement — leave it
+  unticked, say so, and leave the milestone in In Progress. An overstated board is worse than a
+  short one. (TASK-7)
+- **Keep the board honest about deviations.** When the code deliberately departs from a written
+  criterion, rewrite the criterion to say what was built and why. Ticking the old wording records
+  a falsehood in the very file that is supposed to prove traceability. (TASK-8)
+- **Check tooling behavior against the installed version, not memory.** The pins here — Python
+  3.14, pandas 3.0.6, plotly 7.1.0, streamlit 1.64.0 — are newer than much training data. Verify
+  a suspicious API against the venv rather than "correcting" working code to a remembered older
+  one. (TASK-3)
+- **A redirect is not a verdict.** `curl` following a 303 to an auth URL does not prove an app is
+  private; Streamlit Cloud redirects to mint a session and a browser completes it invisibly. When
+  a check and a human's observation disagree, prefer the observation and say plainly which was
+  wrong. (TASK-8)
+- **Commit messages are subject, blank line, then trailer.** Without the blank line git folds the
+  trailer into the subject and the body comes back empty. Verify with
+  `git log -1 --format='SUBJECT:[%s] BODY:[%b]'` before moving on. (TASK-1)
+- **Batch a cross-cutting fix; don't patch it piecemeal.** When a deprecation touches several call
+  sites, leave them consistent and sweep them once with the real warning text in hand. Three
+  independently "fixed" call sites are worse than three uniformly stale ones. (TASK-3)
+- **Explain the counterintuitive line where it lives.** `categoryorder="total ascending"` is
+  correct because horizontal bars render bottom-up. Anything that reads like a bug and isn't gets
+  a comment, or someone will "fix" it into one. (TASK-4)
+- **Surface design tensions instead of resolving them silently.** An empty CSV renders `$0` rather
+  than failing, which the spec requires but which sits against the fail-fast rationale. Flag that
+  for a human decision; don't quietly change the behavior or quietly ignore it. (TASK-6)
+- **Per-step review cannot catch cross-step drift.** Eight passing milestone reviews still missed
+  a board-versus-code mismatch, because each reviewer only saw its own diff. Review the whole
+  branch before merging. (TASK-8)
