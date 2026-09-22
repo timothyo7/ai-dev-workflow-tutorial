@@ -22,6 +22,12 @@ REQUIRED_COLUMNS = [
 
 NUMERIC_COLUMNS = ["quantity", "unit_price", "total_amount"]
 
+# Columns used as groupby keys by the breakdown charts. pandas.groupby drops
+# null keys by default, so a blank value here would quietly remove the row from
+# a chart while leaving it in the Total Sales KPI -- the two would disagree with
+# no error shown. They are validated for exactly that reason.
+GROUPING_COLUMNS = ["category", "region"]
+
 
 class DataError(Exception):
     """Raised when the sales CSV is missing, unreadable, or malformed."""
@@ -58,28 +64,67 @@ def load_data(path):
 
     df = df.copy()
 
-    df["date"] = pd.to_datetime(df["date"], errors="coerce")
-    _reject_unparsed(df["date"], "date", "a valid date")
+    for column in GROUPING_COLUMNS:
+        _reject_blank(df, column)
+
+    original_dates = df["date"]
+    df["date"] = pd.to_datetime(original_dates, errors="coerce")
+    _reject_unparsed(df, df["date"], original_dates, "date", "a valid date")
 
     for column in NUMERIC_COLUMNS:
-        df[column] = pd.to_numeric(df[column], errors="coerce")
-        _reject_unparsed(df[column], column, "a number")
+        original = df[column]
+        df[column] = pd.to_numeric(original, errors="coerce")
+        _reject_unparsed(df, df[column], original, column, "a number")
 
     return df
 
 
-def _reject_unparsed(series, column, expectation):
-    """Raise DataError if coercion left any NaN, naming the first bad CSV line."""
-    unparsed = series.isna()
+def _reject_unparsed(df, coerced, original, column, expectation):
+    """Raise DataError if coercion left any NaN, quoting the first bad value."""
+    unparsed = coerced.isna()
     if not unparsed.any():
         return
-    # +2 converts a zero-based row position into a 1-based CSV line number,
-    # accounting for the header line.
-    line = int(unparsed.to_numpy().argmax()) + 2
+    position = int(unparsed.to_numpy().argmax())
     raise DataError(
-        f"Column '{column}' contains a value that is not {expectation} "
-        f"(first problem on line {line} of the file)."
+        f"Column '{column}' contains a value that is not {expectation}: "
+        f"{_describe(original.iloc[position])} ({_identify_row(df, position)})."
     )
+
+
+def _reject_blank(df, column):
+    """Raise DataError if any row has no usable value in a grouping column."""
+    blank = df[column].map(_is_blank)
+    if not blank.any():
+        return
+    position = int(blank.to_numpy().argmax())
+    raise DataError(
+        f"Column '{column}' is empty for at least one row "
+        f"({_identify_row(df, position)}). Every row needs a {column} so the "
+        f"breakdown charts add up to the same total as the KPI."
+    )
+
+
+def _is_blank(value):
+    """True for NaN and for strings that are empty or only whitespace."""
+    return pd.isna(value) or not str(value).strip()
+
+
+def _describe(value):
+    """Render a cell for an error message, without pretending NaN is text."""
+    return "an empty value" if _is_blank(value) else repr(str(value))
+
+
+def _identify_row(df, position):
+    """Point at a row by order_id.
+
+    Deliberately not a file line number: pandas skips blank lines and folds
+    quoted newlines into a single row, so row position and file line drift
+    apart and the number would send the reader to the wrong row.
+    """
+    order_id = df["order_id"].iloc[position]
+    if _is_blank(order_id):
+        return f"data row {position + 1}"
+    return f"order_id {order_id}"
 
 
 def total_sales(df):

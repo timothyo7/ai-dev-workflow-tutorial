@@ -16,6 +16,24 @@ Before any milestone moves to Done, all of the following must be true:
 
 ## Done
 
+### TASK-9 — Post-merge review fixes (FR-3, FR-4, FR-5)
+Fix the two defects found reviewing the merged `feature/sales-dashboard` branch.
+
+- [x] A blank `category` or `region` fails validation instead of silently dropping the row
+- [x] The breakdown charts reconcile with the Total Sales KPI
+- [x] Validation errors identify the offending row correctly on files with blank lines
+- [x] 40 tests pass; the app runs locally with no errors or warnings
+
+**Commit:** d27500a
+**Notes:** both defects were invisible rather than loud -- `groupby` drops null keys by
+default, and the old `line = row + 2` arithmetic produced a plausible but wrong number.
+Errors now name the row by `order_id` rather than by file line, because row position and
+file line drift apart the moment pandas skips a blank line. One limitation worth recording:
+pandas turns its default null sentinels (`N/A`, `NA`, `null`) into NaN during parsing, so
+those values are reported as "an empty value" -- the original text is gone before this
+module sees it. Browser render not re-verified; the local run returned HTTP 200 with a
+clean log, which is not the same as looking at the page.
+
 ### TASK-7 — Testing and refinement (NFR-2, NFR-3)
 Polish appearance, verify performance, and clean up the code.
 
