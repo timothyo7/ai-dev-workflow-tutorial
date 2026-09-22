@@ -80,3 +80,27 @@ def _reject_unparsed(series, column, expectation):
         f"Column '{column}' contains a value that is not {expectation} "
         f"(first problem on line {line} of the file)."
     )
+
+
+def total_sales(df):
+    """Sum of every transaction's total_amount."""
+    return float(df["total_amount"].sum())
+
+
+def total_orders(df):
+    """Count of transactions.
+
+    Row count is the order count: every order_id in the source data is unique,
+    an invariant the test suite asserts.
+    """
+    return int(len(df))
+
+
+def format_currency(value):
+    """116500.21 -> '$116,500'."""
+    return f"${value:,.0f}"
+
+
+def format_count(value):
+    """482 -> '482'; 12345 -> '12,345'."""
+    return f"{value:,}"

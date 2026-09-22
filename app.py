@@ -33,4 +33,6 @@ except analytics.DataError as error:
     st.error(f"Could not load sales data.\n\n{error}")
     st.stop()
 
-st.caption(f"{len(df):,} transactions loaded from {DATA_PATH.name}")
+sales_column, orders_column = st.columns(2)
+sales_column.metric("Total Sales", analytics.format_currency(analytics.total_sales(df)))
+orders_column.metric("Total Orders", analytics.format_count(analytics.total_orders(df)))

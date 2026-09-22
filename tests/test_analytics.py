@@ -78,3 +78,65 @@ def test_valid_file_still_loads(tmp_path):
     path = write_csv(tmp_path, GOOD_HEADER + GOOD_ROW)
     df = analytics.load_data(path)
     assert len(df) == 1
+
+
+def sample_df():
+    """Six rows whose totals are checkable by hand: they sum to 300.00.
+
+    Two dates fall in the same ISO week (2024-01-01 and 2024-01-03) so weekly
+    bucketing has something real to collapse.
+    """
+    return pd.DataFrame(
+        {
+            "date": pd.to_datetime(
+                [
+                    "2024-01-01",
+                    "2024-01-03",
+                    "2024-01-08",
+                    "2024-01-15",
+                    "2024-01-22",
+                    "2024-01-29",
+                ]
+            ),
+            "order_id": ["ORD-1", "ORD-2", "ORD-3", "ORD-4", "ORD-5", "ORD-6"],
+            "product": ["A", "B", "C", "D", "E", "F"],
+            "category": ["Audio", "Audio", "Wearables", "Audio", "Wearables", "Smart Home"],
+            "region": ["North", "South", "North", "North", "South", "East"],
+            "quantity": [1, 1, 1, 1, 1, 1],
+            "unit_price": [100.0, 50.0, 40.0, 60.0, 30.0, 20.0],
+            "total_amount": [100.0, 50.0, 40.0, 60.0, 30.0, 20.0],
+        }
+    )
+
+
+def test_total_sales_sums_amounts():
+    assert analytics.total_sales(sample_df()) == 300.00
+
+
+def test_total_orders_counts_rows():
+    assert analytics.total_orders(sample_df()) == 6
+
+
+def test_total_sales_of_real_csv_matches_known_value():
+    df = analytics.load_data(REAL_CSV)
+    assert round(analytics.total_sales(df), 2) == 116500.21
+
+
+def test_total_orders_of_real_csv_matches_known_value():
+    df = analytics.load_data(REAL_CSV)
+    assert analytics.total_orders(df) == 482
+
+
+def test_every_row_is_a_distinct_order():
+    # total_orders counts rows; this guards the assumption that lets it.
+    df = analytics.load_data(REAL_CSV)
+    assert df["order_id"].nunique() == analytics.total_orders(df)
+
+
+def test_format_currency_rounds_and_separates():
+    assert analytics.format_currency(116500.21) == "$116,500"
+
+
+def test_format_count_separates_thousands():
+    assert analytics.format_count(482) == "482"
+    assert analytics.format_count(12345) == "12,345"
