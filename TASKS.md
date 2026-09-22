@@ -12,15 +12,6 @@ Before any milestone moves to Done, all of the following must be true:
 
 ## To Do
 
-### TASK-4 — Sales trend chart (FR-2)
-Add a Plotly line chart of sales over time.
-
-- [ ] Line chart plots time on the X-axis and sales amount on the Y-axis
-- [ ] Granularity is daily or monthly and axes are clearly labeled
-- [ ] Hovering shows a tooltip with the exact value
-
-**Commit:**
-
 ### TASK-5 — Category and region breakdowns (FR-3, FR-4)
 Add side-by-side bar charts for sales by category and by region.
 
@@ -60,6 +51,15 @@ Validate the CSV structure before loading and fail with a clear message instead 
 **Commit:** 2b69002
 
 ## Done
+
+### TASK-4 — Sales trend chart (FR-2)
+Add a Plotly line chart of sales over time.
+
+- [x] Line chart plots time on the X-axis and sales amount on the Y-axis
+- [x] Granularity is daily or monthly and axes are clearly labeled
+- [x] Hovering shows a tooltip with the exact value
+
+**Commit:** 07569e9
 
 ### TASK-3 — KPI cards (FR-1)
 Display Total Sales and Total Orders prominently at the top of the dashboard.
