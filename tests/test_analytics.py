@@ -1,11 +1,13 @@
 """Tests for analytics.py — the data loading and aggregation module."""
 
+from pathlib import Path
+
 import pandas as pd
 import pytest
 
 import analytics
 
-REAL_CSV = "data/sales-data.csv"
+REAL_CSV = Path(__file__).parent.parent / "data" / "sales-data.csv"
 
 
 def test_load_data_returns_all_rows():

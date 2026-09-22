@@ -55,6 +55,9 @@ def _breakdown_chart(data, dimension):
     )
     figure.update_traces(hovertemplate="%{y}<br>Sales: $%{x:,.0f}<extra></extra>")
     figure.update_layout(xaxis_title="Sales", yaxis_title="")
+    # Plotly renders horizontal bars bottom-up, so "ascending" order places the
+    # largest total_amount at the top — mirroring the descending sort that
+    # _sales_grouped_by (analytics.py) already applied to the data.
     figure.update_yaxes(categoryorder="total ascending")
     return _style(figure)
 
