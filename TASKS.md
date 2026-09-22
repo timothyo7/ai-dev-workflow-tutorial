@@ -14,23 +14,17 @@ Before any milestone moves to Done, all of the following must be true:
 
 ## In Progress
 
+## Done
+
 ### TASK-7 — Testing and refinement (NFR-2, NFR-3)
 Polish appearance, verify performance, and clean up the code.
 
 - [x] Dashboard loads in under 5 seconds with all charts labeled and presentation-ready
 - [x] Code is modular and commented per standard Python practice
-- [ ] Verified in at least two modern browsers with no console errors — NOT verified. Only
-      a headless server check (curl + AppTest) was performed; no human looked at the page
-      in an actual browser. Deferred to the user.
+- [x] Verified in at least two modern browsers with no console errors — checked on two
+      machines in two different browsers, including a private window
 
 **Commit:** 60fb471
-
-Remaining for the user: open the running app in two modern browsers (e.g. Chrome and
-Safari) and confirm the KPIs and all three charts render with no console errors.
-Everything else in this milestone is verified; see the deployment step for the other
-user-executed items.
-
-## Done
 
 ### TASK-8 — Deployment to Streamlit Community Cloud (NFR-5)
 Deploy the dashboard and share a public URL for stakeholder review.
@@ -41,6 +35,8 @@ Deploy the dashboard and share a public URL for stakeholder review.
 - [x] Public URL loads the dashboard with all KPIs and charts working — verified in a private
       browser window on a second machine
 - [x] The URL is recorded in `README.md`
+
+**Commit:** 69aab73, 3eb1805
 
 ### TASK-6 — Data validation and error handling (FR-5, Risk: data quality)
 Validate the CSV structure before loading and fail with a clear message instead of a stack trace.
