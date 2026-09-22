@@ -23,8 +23,6 @@ Deploy the dashboard and share a public URL for stakeholder review.
 
 ## In Progress
 
-## Done
-
 ### TASK-7 — Testing and refinement (NFR-2, NFR-3)
 Polish appearance, verify performance, and clean up the code.
 
@@ -35,6 +33,13 @@ Polish appearance, verify performance, and clean up the code.
       in an actual browser. Deferred to the user.
 
 **Commit:** 60fb471
+
+Remaining for the user: open the running app in two modern browsers (e.g. Chrome and
+Safari) and confirm the KPIs and all three charts render with no console errors.
+Everything else in this milestone is verified; see the deployment step for the other
+user-executed items.
+
+## Done
 
 ### TASK-6 — Data validation and error handling (FR-5, Risk: data quality)
 Validate the CSV structure before loading and fail with a clear message instead of a stack trace.
