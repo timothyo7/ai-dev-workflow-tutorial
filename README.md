@@ -108,6 +108,26 @@ Open [pre-work-setup.md](pre-work-setup.md) and work through it first, then cont
 | [Codex companion](codex-companion.md) | For students on a ChatGPT subscription: what to do differently with OpenAI's Codex at each marked point |
 | [Capstone tools](capstone-tools.md) | Appendix: Granola (meeting notes into Claude Code) and Wispr Flow (dictation), for the capstone, not this tutorial |
 
+## Sales Dashboard
+
+Local setup:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Run the tests with `pytest`.
+
+**Note:** if your checkout path contains a `:` (as the original author's does), Python's
+`venv` module refuses to create an environment inside it. Create the venv elsewhere —
+`python3 -m venv ~/.venvs/shopsmart-dashboard` — and symlink it in as `venv`. Streamlit
+Community Cloud is unaffected; it builds its own environment from `requirements.txt`.
+
+**Live dashboard:** _(deployed URL goes here — see TASK-8)_
+
 ## License
 
 This tutorial is provided for educational purposes.

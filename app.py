@@ -39,7 +39,7 @@ sales_column.metric("Total Sales", analytics.format_currency(analytics.total_sal
 orders_column.metric("Total Orders", analytics.format_count(analytics.total_orders(df)))
 
 st.subheader("Sales Trend Over Time")
-st.plotly_chart(charts.trend_chart(analytics.sales_by_week(df)), use_container_width=True)
+st.plotly_chart(charts.trend_chart(analytics.sales_by_week(df)), width="stretch")
 
 category_column, region_column = st.columns(2)
 
@@ -47,12 +47,12 @@ with category_column:
     st.subheader("Sales by Category")
     st.plotly_chart(
         charts.category_chart(analytics.sales_by_category(df)),
-        use_container_width=True,
+        width="stretch",
     )
 
 with region_column:
     st.subheader("Sales by Region")
     st.plotly_chart(
         charts.region_chart(analytics.sales_by_region(df)),
-        use_container_width=True,
+        width="stretch",
     )

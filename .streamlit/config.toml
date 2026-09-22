@@ -1,0 +1,8 @@
+# Theme only — no custom CSS. CSS that targets Streamlit's internal class names
+# breaks silently across versions; a theme block is supported API.
+[theme]
+primaryColor = "#2563eb"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f8fafc"
+textColor = "#0f172a"
+font = "sans serif"
