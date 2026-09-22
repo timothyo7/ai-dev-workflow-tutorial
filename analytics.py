@@ -104,3 +104,22 @@ def format_currency(value):
 def format_count(value):
     """482 -> '482'; 12345 -> '12,345'."""
     return f"{value:,}"
+
+
+def sales_by_week(df):
+    """Total sales per calendar week, oldest first.
+
+    Weeks are labelled by their start date rather than a week number so the
+    chart plots on a real time axis and tooltips read as dates.
+    """
+    if df.empty:
+        return pd.DataFrame({"week_start": [], "total_amount": []})
+
+    week_start = df["date"].dt.to_period("W").dt.start_time
+    return (
+        df.assign(week_start=week_start)
+        .groupby("week_start", as_index=False)["total_amount"]
+        .sum()
+        .sort_values("week_start")
+        .reset_index(drop=True)
+    )

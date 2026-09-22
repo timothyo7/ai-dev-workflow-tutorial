@@ -140,3 +140,27 @@ def test_format_currency_rounds_and_separates():
 def test_format_count_separates_thousands():
     assert analytics.format_count(482) == "482"
     assert analytics.format_count(12345) == "12,345"
+
+
+def test_sales_by_week_collapses_dates_in_the_same_week():
+    weekly = analytics.sales_by_week(sample_df())
+    # 2024-01-01 and 2024-01-03 share an ISO week, so six rows become five.
+    assert len(weekly) == 5
+    assert weekly.iloc[0]["total_amount"] == 150.0
+
+
+def test_sales_by_week_is_sorted_ascending():
+    weekly = analytics.sales_by_week(sample_df())
+    assert list(weekly["week_start"]) == sorted(weekly["week_start"])
+
+
+def test_sales_by_week_totals_match_overall_total():
+    df = analytics.load_data(REAL_CSV)
+    weekly = analytics.sales_by_week(df)
+    assert round(weekly["total_amount"].sum(), 2) == 116500.21
+
+
+def test_sales_by_week_handles_empty_data():
+    empty = sample_df().iloc[0:0]
+    weekly = analytics.sales_by_week(empty)
+    assert len(weekly) == 0

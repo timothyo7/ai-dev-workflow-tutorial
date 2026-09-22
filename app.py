@@ -9,6 +9,7 @@ from pathlib import Path
 import streamlit as st
 
 import analytics
+import charts
 
 DATA_PATH = Path(__file__).parent / "data" / "sales-data.csv"
 
@@ -36,3 +37,6 @@ except analytics.DataError as error:
 sales_column, orders_column = st.columns(2)
 sales_column.metric("Total Sales", analytics.format_currency(analytics.total_sales(df)))
 orders_column.metric("Total Orders", analytics.format_count(analytics.total_orders(df)))
+
+st.subheader("Sales Trend Over Time")
+st.plotly_chart(charts.trend_chart(analytics.sales_by_week(df)), use_container_width=True)
