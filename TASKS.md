@@ -63,7 +63,7 @@ Add side-by-side bar charts for sales by category and by region.
 Add a Plotly line chart of sales over time.
 
 - [x] Line chart plots time on the X-axis and sales amount on the Y-axis
-- [x] Granularity is daily or monthly and axes are clearly labeled
+- [x] Granularity is weekly (see spec D1 — daily is dominated by single-order spikes) and axes are clearly labeled
 - [x] Hovering shows a tooltip with the exact value
 
 **Commit:** 07569e9
