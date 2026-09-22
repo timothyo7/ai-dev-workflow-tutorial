@@ -82,6 +82,59 @@ def test_valid_file_still_loads(tmp_path):
     assert len(df) == 1
 
 
+def test_blank_category_raises_data_error(tmp_path):
+    """A row with no category would vanish from the breakdown, not the total."""
+    bad_row = GOOD_ROW.replace(",Audio,", ",,")
+    path = write_csv(tmp_path, GOOD_HEADER + bad_row)
+    with pytest.raises(analytics.DataError) as excinfo:
+        analytics.load_data(path)
+    assert "category" in str(excinfo.value)
+
+
+def test_blank_region_raises_data_error(tmp_path):
+    bad_row = GOOD_ROW.replace(",North,", ",,")
+    path = write_csv(tmp_path, GOOD_HEADER + bad_row)
+    with pytest.raises(analytics.DataError) as excinfo:
+        analytics.load_data(path)
+    assert "region" in str(excinfo.value)
+
+
+def test_whitespace_only_category_raises_data_error(tmp_path):
+    """Whitespace is not a category; pandas would group it as its own bucket."""
+    bad_row = GOOD_ROW.replace(",Audio,", ",   ,")
+    path = write_csv(tmp_path, GOOD_HEADER + bad_row)
+    with pytest.raises(analytics.DataError) as excinfo:
+        analytics.load_data(path)
+    assert "category" in str(excinfo.value)
+
+
+def test_error_identifies_the_row_by_order_id_not_by_line_number(tmp_path):
+    """Blank lines and quoted newlines break row-to-line arithmetic.
+
+    pandas skips blank lines and folds quoted newlines into one row, so a file
+    line number computed from row position points at the wrong row. The message
+    names the order_id and the offending value instead, which survive both.
+    """
+    good_row = GOOD_ROW.replace("ORD-1", "ORD-GOOD")
+    bad_row = GOOD_ROW.replace("ORD-1", "ORD-BAD").replace(",79.99,", ",oops,")
+    path = write_csv(tmp_path, GOOD_HEADER + good_row + "\n" + bad_row)
+    with pytest.raises(analytics.DataError) as excinfo:
+        analytics.load_data(path)
+    message = str(excinfo.value)
+    assert "ORD-BAD" in message
+    assert "oops" in message
+    assert "line" not in message
+
+
+def test_blank_numeric_value_still_raises(tmp_path):
+    """An empty numeric cell must stay an error, not be reported as fine."""
+    bad_row = GOOD_ROW.replace(",159.98", ",")
+    path = write_csv(tmp_path, GOOD_HEADER + bad_row)
+    with pytest.raises(analytics.DataError) as excinfo:
+        analytics.load_data(path)
+    assert "total_amount" in str(excinfo.value)
+
+
 def sample_df():
     """Six rows whose totals are checkable by hand: they sum to 300.00.
 
