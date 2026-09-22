@@ -2,6 +2,8 @@
 
 This tutorial teaches you a professional development workflow by having you build and deploy a real project: an e-commerce sales dashboard.
 
+**Live example dashboard:** https://sales-dashboard-timothyohara.streamlit.app
+
 You'll work through it in two parts:
 
 | Part | What you do | Time |
@@ -131,7 +133,7 @@ Run the tests with `pytest`.
 `python3 -m venv ~/.venvs/shopsmart-dashboard` — and symlink it in as `venv`. Streamlit
 Community Cloud is unaffected; it builds its own environment from `requirements.txt`.
 
-**Live dashboard:** _(deployed URL goes here — see TASK-8)_
+**Live dashboard:** https://sales-dashboard-timothyohara.streamlit.app
 
 ## License
 

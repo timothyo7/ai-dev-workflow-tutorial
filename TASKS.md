@@ -12,15 +12,6 @@ Before any milestone moves to Done, all of the following must be true:
 
 ## To Do
 
-### TASK-8 — Deployment to Streamlit Community Cloud (NFR-5)
-Deploy the dashboard and share a public URL for stakeholder review.
-
-- [ ] App is deployed to Streamlit Community Cloud from this repo
-- [ ] Public URL loads the dashboard with all KPIs and charts working
-- [ ] The URL is recorded in `README.md`
-
-**Commit:**
-
 ## In Progress
 
 ### TASK-7 — Testing and refinement (NFR-2, NFR-3)
@@ -40,6 +31,19 @@ Everything else in this milestone is verified; see the deployment step for the o
 user-executed items.
 
 ## Done
+
+### TASK-8 — Deployment to Streamlit Community Cloud (NFR-5)
+Deploy the dashboard and share a public URL for stakeholder review.
+
+**Live dashboard:** https://sales-dashboard-timothyohara.streamlit.app
+
+- [x] App is deployed to Streamlit Community Cloud from this repo
+- [ ] Public URL loads the dashboard with all KPIs and charts working — the app is deployed and
+      healthy (`/healthz` returns 200), but an unauthenticated request to the root URL returns
+      `303` to `share.streamlit.io/-/auth/app`, i.e. the app is currently private. Set its
+      sharing to public in the Streamlit Cloud app settings, then confirm in a private browser
+      window and tick this.
+- [x] The URL is recorded in `README.md`
 
 ### TASK-6 — Data validation and error handling (FR-5, Risk: data quality)
 Validate the CSV structure before loading and fail with a clear message instead of a stack trace.
