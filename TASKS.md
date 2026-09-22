@@ -12,15 +12,6 @@ Before any milestone moves to Done, all of the following must be true:
 
 ## To Do
 
-### TASK-5 — Category and region breakdowns (FR-3, FR-4)
-Add side-by-side bar charts for sales by category and by region.
-
-- [ ] Category bar chart shows all 5 categories, sorted highest to lowest
-- [ ] Region bar chart shows all 4 regions, sorted highest to lowest
-- [ ] Both charts sit in a two-column layout with interactive tooltips
-
-**Commit:**
-
 ### TASK-7 — Testing and refinement (NFR-2, NFR-3)
 Polish appearance, verify performance, and clean up the code.
 
@@ -51,6 +42,15 @@ Validate the CSV structure before loading and fail with a clear message instead 
 **Commit:** 2b69002
 
 ## Done
+
+### TASK-5 — Category and region breakdowns (FR-3, FR-4)
+Add side-by-side bar charts for sales by category and by region.
+
+- [x] Category bar chart shows all 5 categories, sorted highest to lowest
+- [x] Region bar chart shows all 4 regions, sorted highest to lowest
+- [x] Both charts sit in a two-column layout with interactive tooltips
+
+**Commit:** d0f0eda
 
 ### TASK-4 — Sales trend chart (FR-2)
 Add a Plotly line chart of sales over time.
