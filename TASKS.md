@@ -48,15 +48,6 @@ Add side-by-side bar charts for sales by category and by region.
 
 **Commit:**
 
-### TASK-6 — Data validation and error handling (FR-5, Risk: data quality)
-Validate the CSV structure before loading and fail with a clear message instead of a stack trace.
-
-- [ ] Missing file or missing required columns produces a readable in-app message
-- [ ] Computed totals match the expected values from the CSV
-- [ ] No Streamlit or Pandas warnings appear in the terminal
-
-**Commit:**
-
 ### TASK-7 — Testing and refinement (NFR-2, NFR-3)
 Polish appearance, verify performance, and clean up the code.
 
@@ -76,6 +67,15 @@ Deploy the dashboard and share a public URL for stakeholder review.
 **Commit:**
 
 ## In Progress
+
+### TASK-6 — Data validation and error handling (FR-5, Risk: data quality)
+Validate the CSV structure before loading and fail with a clear message instead of a stack trace.
+
+- [x] Missing file or missing required columns produces a readable in-app message
+- [x] Computed totals match the expected values from the CSV
+- [ ] No Streamlit or Pandas warnings appear in the terminal
+
+**Commit:** 2b69002
 
 ## Done
 
