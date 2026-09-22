@@ -12,15 +12,6 @@ Before any milestone moves to Done, all of the following must be true:
 
 ## To Do
 
-### TASK-2 — Data loading and basic structure
-Load `data/sales-data.csv` with Pandas and lay out the dashboard shell (title, sections).
-
-- [ ] CSV loads with correct types (date parsed as date, numeric columns as numbers)
-- [ ] Data loading is in a reusable, cached function
-- [ ] Page title "ShopSmart Sales Dashboard" and section placeholders render
-
-**Commit:**
-
 ### TASK-3 — KPI cards (FR-1)
 Display Total Sales and Total Orders prominently at the top of the dashboard.
 
@@ -78,6 +69,15 @@ Validate the CSV structure before loading and fail with a clear message instead 
 **Commit:** 2b69002
 
 ## Done
+
+### TASK-2 — Data loading and basic structure
+Load `data/sales-data.csv` with Pandas and lay out the dashboard shell (title, sections).
+
+- [x] CSV loads with correct types (date parsed as date, numeric columns as numbers)
+- [x] Data loading is in a reusable, cached function
+- [x] Page title "ShopSmart Sales Dashboard" and section placeholders render
+
+**Commit:** d51d705
 
 ### TASK-1 — Environment setup and project initialization
 Set up the Python 3.11+ project, dependencies (Streamlit, Pandas, Plotly), and repo structure.
