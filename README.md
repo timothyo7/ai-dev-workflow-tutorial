@@ -115,9 +115,14 @@ Local setup:
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt -r requirements-dev.txt
 streamlit run app.py
 ```
+
+`requirements.txt` lists only what the deployed app needs (streamlit, pandas,
+plotly) — that's the file Streamlit Community Cloud installs from. The
+test-only dependency (`pytest`) lives in `requirements-dev.txt`, installed
+locally but not on Streamlit Cloud.
 
 Run the tests with `pytest`.
 
