@@ -12,15 +12,6 @@ Before any milestone moves to Done, all of the following must be true:
 
 ## To Do
 
-### TASK-3 — KPI cards (FR-1)
-Display Total Sales and Total Orders prominently at the top of the dashboard.
-
-- [ ] Total Sales shown as currency with separators (~$116,500)
-- [ ] Total Orders shown as a count with separators (482)
-- [ ] Both KPIs appear side by side above the charts
-
-**Commit:**
-
 ### TASK-4 — Sales trend chart (FR-2)
 Add a Plotly line chart of sales over time.
 
@@ -69,6 +60,15 @@ Validate the CSV structure before loading and fail with a clear message instead 
 **Commit:** 2b69002
 
 ## Done
+
+### TASK-3 — KPI cards (FR-1)
+Display Total Sales and Total Orders prominently at the top of the dashboard.
+
+- [x] Total Sales shown as currency with separators (~$116,500)
+- [x] Total Orders shown as a count with separators (482)
+- [x] Both KPIs appear side by side above the charts
+
+**Commit:** 98b0125
 
 ### TASK-2 — Data loading and basic structure
 Load `data/sales-data.csv` with Pandas and lay out the dashboard shell (title, sections).
