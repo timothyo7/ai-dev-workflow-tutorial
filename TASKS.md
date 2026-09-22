@@ -12,15 +12,6 @@ Before any milestone moves to Done, all of the following must be true:
 
 ## To Do
 
-### TASK-1 — Environment setup and project initialization
-Set up the Python 3.11+ project, dependencies (Streamlit, Pandas, Plotly), and repo structure.
-
-- [ ] `requirements.txt` lists streamlit, pandas, and plotly
-- [ ] `streamlit run app.py` launches a placeholder app without errors
-- [ ] Project structure includes `app.py` and `data/` directory
-
-**Commit:**
-
 ### TASK-2 — Data loading and basic structure
 Load `data/sales-data.csv` with Pandas and lay out the dashboard shell (title, sections).
 
@@ -87,3 +78,12 @@ Deploy the dashboard and share a public URL for stakeholder review.
 ## In Progress
 
 ## Done
+
+### TASK-1 — Environment setup and project initialization
+Set up the Python 3.11+ project, dependencies (Streamlit, Pandas, Plotly), and repo structure.
+
+- [x] `requirements.txt` lists streamlit, pandas, and plotly
+- [x] `streamlit run app.py` launches a placeholder app without errors
+- [x] Project structure includes `app.py` and `data/` directory
+
+**Commit:** 4d5b752
